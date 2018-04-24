@@ -4,12 +4,9 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
 
-### More Information
+Welcome and thank you for wanting to learn more about me. I am a recovering academic who worked on American institutions and public policy. I am currently seeking more applied pursuits.
 
-A place to include any other types of information that you'd like to include about yourself.
+In my non-academic life, I am interested in cheering for midwestern sports teams, exploring state parks, and watching PBS.
 
-### Contact me
-
-[email@domain.com](mailto:email@domain.com)
+I can be reached at olso4075 [at] umn.edu and my twitter account is listed in bottom.
