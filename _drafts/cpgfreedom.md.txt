@@ -1,0 +1,36 @@
+---
+layout: post
+title: What does the House Freedom Caucus tell us about Conditional Party Government?
+tags: 
+- Political Science
+- Congress
+- Predictions
+- 114th Congress
+- Republican Party
+- Democratic Party
+- John Boehner
+- Congressional Freedom Caucus
+- Tea Party
+- History
+
+---
+
+There was [a fantastic article](http://www.politico.com/magazine/story/2015/10/the-freedom-caucus-historic-rebellion-213256?o=1) tracing the evolution of intraparty conflict in the House of Representatives by Alan Greenblatt which appeared in Politico over the weekend. It makes the point, relying on historical evidence, that an insurgent faction -- such as the Freedom Caucus -- has not fought its own party leadership and the other party at the same time since the civil war. 
+
+One of the examples the author brings up is the rise of the `Watergate' babies and the impact they had on changing the House of Representatives.  This is one of the most studied times among political scientists focused on Congress, spurring research about the time specifically and lending much fuel to a very protracted debate about the role of central parties in the House. One of the dominant ideas that came from this conflict was [Conditional Party Government.](http://wikisum.com/w/Rohde:_Parties_and_leaders_in_the_post-reform_House)
+
+The argument goes that parties only empower their centralized leadership when there is widespread consensus among the partisans. If there is not agreement then Congress will develop weaker central leaders and if there is agreement then they will develop strong leaders. In the 1970s case, a slew of liberal (relative to the average House Democrat) Democrats had been getting elected since the 1948 election. When they reached a critical mass in the mid 1970s, they pushed through some serious Congressional reforms, namely significantly weakening standing committee Chairs and empowering the rank and file Democrat. Eventually, the reforms continued and leadership in both the House and Senate was empowered by the rank and file, more or less bringing us to the modern day.
+
+The idea of applying lessons from the 70s liberals (which were organized by the Democratic Study Group) to the modern Freedom Caucus (FC) is interesting, especially when we consider their differences. The idea of CPG was formulated around the DSG reforms so presumably we could examine some of its ideas under the current regime. Moreover, there are some significant differences as well, which may also lend insight. Examining CPG through this comparison may seem overly academic, but ultimately CPG is a framework that can help us potentially predict what will happen next, which is obviously useful in its own right.
+
+One way the Freedom Caucus folks are different from the DSG is that DGS members only rarely attacked their party leadership publicly and preferred to work within caucus channels. By attacking the party leadership, you damage the party brand. Members of Congress are generally interested in getting re-elected and if you damage the party brand, then it makes the task of re-election harder. It seems as though that most of the Freedom Caucus members are not very concerned about damaging the Republican brand, which implies that they are either not concerned with the impact of a damaged brand on their re-election prospects. This is strange to me because a [third of these members aren't from extremely secure Republican districts](http://fivethirtyeight.com/datalab/the-hard-line-republicans-who-pushed-john-boehner-out/). 
+
+This leads me to the question of electoral incentives. Are Freedom Caucus members more afraid of primary electorates or general election electorates? There have been some high profile primary victories by eventual FC members, but it seems risky to go after your own party label in a marginally Republican (or even Democratic) district. However, if they are concerned with getting renominated then this strategy fits well by appealing to the people more likely to vote in the primaries. A third possibility is that they aren't concerned with elections at all. This is the narrative that the FC people would have us think, that they are only concerned with shrinking the size of government and `electoral strategy' be damned. This may be the case, but we can't know yet.
+
+Another area where this are significant differences between the DSG and the FC is in their level of ideological disagreement. 
+Those two images
+
+The reforms forced by the DSG were fairly gradual 
+Gradual, this is not.
+
+So what?
