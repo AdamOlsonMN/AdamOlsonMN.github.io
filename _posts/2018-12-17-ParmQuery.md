@@ -63,7 +63,7 @@ The line that specifies the `Con` is pretty straight odbc. In my case, I actuall
 
 The next chunk of code is the start of telling R you are going to run a SQL query: 
 
-```R
+{% highlight R %}
   Query <- odbc::dbSendQuery(
     Con, "
     DECLARE @Site VARCHAR(10)
@@ -73,18 +73,20 @@ The next chunk of code is the start of telling R you are going to run a SQL quer
     SET @Site = ?
     SET	@StartTime = ?
     SET @EndTime = ?
-```
+{% endhighlight %}
+
 Any query you send through odbc needs to specify a connection string, which we defined earlier as `Con`. The `dbSendQuery` function allows you to pass variables from R into SQL whereas one of the other main `odbc` functions, `dbGetQuery` does not naturally do that. You can hack your way into making `dbGetQuery` accept arguments but [you should not](https://db.rstudio.com/best-practices/run-queries-safely/). The way that you pass the R arguments so that they become SQL parameters is by declaring the parameters in SQL and setting them to a ?. The question mark is the way you pass R into SQL. For this, you'll need to know the datatype of the SQL column but you can get this pretty easily just be looking at the columns in whatever you use to read SQL. Then you reference the parameters in the SQL code.
 
 Next we pass the meat of the query. The `DECLARE` and `SET` parts are part of the query as well (everything after the opening quote is), but this part is where you specify what you are looking for:
 
-```SQL
+{% highlight R %}
 SELECT *
 FROM dbo.table
 WHERE Site = @Site
 AND Date >= @StartTime
 AND Date <= @EndTime")
-```
+{% endhighlight %}
+
 You will note that here is where we use the SQL parameters. I am telling SQL to get all the columns from dbo.table but only the observations where the Site column equals my `@Site` parameter, the date column is `@StartTime` or later and `@EndTime` or earlier. You can envision a scenario where you keep pasting more arguments here. Just keep adding more `DECLARE` and `SET` parameters at the top with the relevant arguments in the R function. I have also written these functions that work very nicely with `purrr` by rerunning the function while passing a list of relevant customers through the `map_df` function. If there is interest, that could be a logical next post.
 
 Up until now, the `Con` and `Query` objects have been unused. So now we do the actual work of querying the database in the last part of the function:
