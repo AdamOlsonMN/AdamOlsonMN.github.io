@@ -22,7 +22,7 @@ Before I get started though, I have a few caveats. First, it takes a little bit 
 
 So let's just get into it. Here is the code for the function.
 
-```r
+{% highlight R %}
 ImportData <-function(
   Site = 'DefaultSite',
   StartTime = '2018-01-01',
@@ -55,7 +55,8 @@ ImportData <-function(
   return(test)
   odbc::dbClearResult(Query)
 }
-```
+{% endhighlight %}
+
 Let me break it down a title. In the function itself, I usually provide defaults so I can more easily test it as I am writing. They make it easier to do an on the fly demo which happens a lot. I am the only statistical programmer on a team with 'real developers' so they are always interested in seeing things in action.
 
 The line that specifies the `Con` is pretty straight odbc. In my case, I actually use my active directory credentials in the connection string, which means replacing the uid and pwd lines with `trusted_connection = true`. I just replaced it with a generic username and password string so it was evident what was happening. The official documentation has some [best practices on what you could do](https://db.rstudio.com/best-practices/managing-credentials) in lieu of storing a plain text password in some reusable code. The other thing you might consider is abstracting t he connection string out into a reusable template in your internal R package. I actually do that as well so then if a server name changes, I can change it just the once. It also makes it easy to swap out credentials as well.
