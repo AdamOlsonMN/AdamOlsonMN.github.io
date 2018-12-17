@@ -22,7 +22,7 @@ Before I get started though, I have a few caveats. First, it takes a little bit 
 
 So let's just get into it. Here is the code for the function.
 
-```R
+```r
 ImportData <-function(
   Site = 'DefaultSite',
   StartTime = '2018-01-01',
