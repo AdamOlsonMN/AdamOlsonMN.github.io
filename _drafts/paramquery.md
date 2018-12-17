@@ -73,7 +73,7 @@ The next chunk of code is the start of telling R you are going to run a SQL quer
     SET	@StartTime = ?
     SET @EndTime = ?
 ```
-Any query you send through odbc needs to specify a connection string, which we defined earlier as `Con`. The `dbSendQuery` function allows you to pass variables from R into SQL whereas one of the other main `odbc` functions, `dbGetQuery` does not naturally do that. You can hack your way into making `dbGetQuery` accept arguments but (you should not)[https://db.rstudio.com/best-practices/run-queries-safely/]. The way that you pass the R arguments so that they become SQL parameters is by declaring the parameters in SQL and setting them to a ?. The question mark is the way you pass R into SQL. For this, you'll need to know the datatype of the SQL column but you can get this pretty easily just be looking at the columns in whatever you use to read SQL. Then you reference the parameters in the SQL code.
+Any query you send through odbc needs to specify a connection string, which we defined earlier as `Con`. The `dbSendQuery` function allows you to pass variables from R into SQL whereas one of the other main `odbc` functions, `dbGetQuery` does not naturally do that. You can hack your way into making `dbGetQuery` accept arguments but [you should not](https://db.rstudio.com/best-practices/run-queries-safely/). The way that you pass the R arguments so that they become SQL parameters is by declaring the parameters in SQL and setting them to a ?. The question mark is the way you pass R into SQL. For this, you'll need to know the datatype of the SQL column but you can get this pretty easily just be looking at the columns in whatever you use to read SQL. Then you reference the parameters in the SQL code.
 
 Next we pass the meat of the query. The `DECLARE` and `SET` parts are part of the query as well (everything after the opening quote is), but this part is where you specify what you are looking for:
 
@@ -104,4 +104,4 @@ I am not a SQL first guy, yet a lot of what I am writing about is based on SQL. 
 
 There are also other R packages to interact with SQL drivers too. For instance, my original versions of this function were based on `RODBC` (and one reoccurring analysis I do still uses it because I haven't had time to convert it over). I picked odbc specifically because the documentation is (extremely  good)[https://db.rstudio.com/] and the strength of passing paramaterized queries there.
 
-If you would like to know more about the underlying concepts of interfacing with a SQL database, (this is a nice overview)[https://cran.r-project.org/web/packages/RODBC/vignettes/RODBC.pdf] relevant to R specifically.
+If you would like to know more about the underlying concepts of interfacing with a SQL database, [this is a nice overview](https://cran.r-project.org/web/packages/RODBC/vignettes/RODBC.pdf) relevant to R specifically.
