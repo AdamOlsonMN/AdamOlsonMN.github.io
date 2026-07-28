@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import PostList from '../../components/PostList.astro';
+import Base from '../../layouts/Base.astro';
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.map((post) => ({ ...post.data, href: `/blog/${post.id}/` }));
+---
+
+<Base
+	title="Blog"
+	description="Writing on data, R, SQL, and whatever else seems worth a post."
+>
+	<h1>Blog</h1>
+	<p>
+		Mostly data and analysis write-ups. Older political-science and academic-life posts live in
+		the <a href="/archive">archive</a> instead.
+	</p>
+	<PostList posts={posts} />
+</Base>

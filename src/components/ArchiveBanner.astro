@@ -1,0 +1,62 @@
+---
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+	pubDate: Date;
+	category: 'commentary' | 'academic';
+	context?: string;
+}
+
+const { pubDate, category, context } = Astro.props;
+const categoryLabel = category === 'academic' ? 'Academic life' : 'Political commentary';
+---
+
+<div class="archive-banner">
+	<div class="stamp">
+		<span class="stamp-date"><FormattedDate date={pubDate} /></span>
+		<span class="stamp-category">{categoryLabel}</span>
+	</div>
+	<p>
+		This post is kept in the <a href="/archive">archive</a> as written — a snapshot of an earlier
+		version of me.
+		{context}
+	</p>
+</div>
+
+<style>
+	.archive-banner {
+		margin-bottom: 2em;
+		padding: 1em 1.2em;
+		background: var(--color-bg-elevated);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius);
+	}
+
+	.stamp {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6em;
+		font-family: var(--font-heading, Georgia, serif);
+		font-weight: 600;
+		border: 2px solid var(--color-ink-soft);
+		border-radius: 999px;
+		padding: 0.25em 0.9em;
+		margin-bottom: 0.6em;
+		transform: rotate(-1.5deg);
+		color: var(--color-ink-soft);
+		font-size: 0.85rem;
+		letter-spacing: 0.03em;
+		text-transform: uppercase;
+	}
+
+	.stamp-category::before {
+		content: '·';
+		margin-right: 0.6em;
+	}
+
+	.archive-banner p {
+		margin: 0;
+		font-size: 0.95rem;
+		color: var(--color-ink-soft);
+	}
+</style>

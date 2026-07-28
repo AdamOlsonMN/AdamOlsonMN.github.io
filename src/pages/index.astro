@@ -1,0 +1,98 @@
+---
+import PostList from '../components/PostList.astro';
+import Base from '../layouts/Base.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.slice(0, 3)
+	.map((post) => ({ ...post.data, href: `/blog/${post.id}/` }));
+---
+
+<Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
+	<section class="hero">
+		<!-- TODO(Adam): swap this initials placeholder for a real portrait -->
+		<div class="portrait" aria-hidden="true">AO</div>
+		<div>
+			<h1>Hi, I'm Adam.</h1>
+			<p class="lede">
+				I'm a political scientist turned data scientist. I spent my twenties studying how
+				Congress makes (or fails to make) laws, and now I spend my days doing data science at
+				Essentia Health. <!-- TODO(Adam): one or two sentences on what that work looks like -->
+			</p>
+		</div>
+	</section>
+
+	<section>
+		<p>
+			I still think like an academic — I like a well-specified question, a clean plot, and a
+			citation when one is warranted — I just apply it to different problems these days. When
+			I'm not doing that, I'm cheering for midwestern sports teams, exploring state parks, and
+			watching PBS. Read more on the <a href="/about">about page</a>.
+		</p>
+	</section>
+
+	{posts.length > 0 && (
+		<section>
+			<h2>Recent writing</h2>
+			<PostList posts={posts} />
+			<p><a href="/blog">See all posts &rarr;</a></p>
+		</section>
+	)}
+
+	<section>
+		<h2>Older writing</h2>
+		<p>
+			Between 2014 and 2019 I wrote a lot about Congress, politics, and academic life. Some of it
+			holds up better than others. It's all still here in the <a href="/archive">archive</a>.
+		</p>
+	</section>
+
+	<section>
+		<h2>Get in touch</h2>
+		<p>
+			I'm at <a href="mailto:adam@adamolson.org">adam@adamolson.org</a>, or find me on
+			<a href="https://github.com/AdamOlsonMN">GitHub</a> and
+			<a href="https://www.linkedin.com/in/adamolsonmn">LinkedIn</a>.
+		</p>
+	</section>
+</Base>
+
+<style>
+	.hero {
+		display: flex;
+		align-items: center;
+		gap: 1.5em;
+		margin-bottom: 1.5em;
+	}
+
+	.portrait {
+		flex-shrink: 0;
+		width: 84px;
+		height: 84px;
+		border-radius: 50%;
+		background: var(--color-accent-soft);
+		color: var(--color-accent);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: var(--font-heading, Georgia, serif);
+		font-weight: 600;
+		font-size: 1.6rem;
+		border: 1px solid var(--color-border);
+	}
+
+	.hero h1 {
+		margin-bottom: 0.3em;
+	}
+
+	.lede {
+		margin: 0;
+		color: var(--color-ink-soft);
+	}
+
+	section {
+		margin-bottom: 2.2em;
+	}
+</style>

@@ -1,0 +1,72 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+import { NAV_LINKS, SITE_TITLE } from '../consts';
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+	href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+---
+
+<header>
+	<nav>
+		<a class="wordmark" href="/">{SITE_TITLE}</a>
+		<div class="links">
+			{
+				NAV_LINKS.map((link) => (
+					<a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
+						{link.label}
+					</a>
+				))
+			}
+			<ThemeToggle />
+		</div>
+	</nav>
+</header>
+
+<style>
+	header {
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	nav {
+		max-width: var(--measure);
+		margin: 0 auto;
+		padding: 1.1em 1.25em;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1em;
+		flex-wrap: wrap;
+	}
+
+	.wordmark {
+		font-family: var(--font-heading, Georgia, serif);
+		font-weight: 600;
+		font-size: 1.25rem;
+		text-decoration: none;
+		color: var(--color-ink);
+	}
+
+	.links {
+		display: flex;
+		align-items: center;
+		gap: 1.3em;
+	}
+
+	.links a {
+		text-decoration: none;
+		color: var(--color-ink-soft);
+		font-size: 0.98rem;
+	}
+
+	.links a:hover,
+	.links a[aria-current='page'] {
+		color: var(--color-accent);
+	}
+
+	@media (max-width: 520px) {
+		.links {
+			gap: 0.9em;
+		}
+	}
+</style>

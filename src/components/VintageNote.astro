@@ -1,0 +1,22 @@
+---
+interface Props {
+	pubDate: Date;
+}
+
+const { pubDate } = Astro.props;
+const year = pubDate.getFullYear();
+---
+
+<p class="vintage-note">
+	Written in {year} — the tools have moved on since then, but the ideas mostly hold up.
+</p>
+
+<style>
+	.vintage-note {
+		font-size: 0.9rem;
+		font-style: italic;
+		color: var(--color-ink-soft);
+		border-left: 3px solid var(--color-border);
+		padding-left: 0.9em;
+	}
+</style>

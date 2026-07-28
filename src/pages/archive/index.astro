@@ -1,0 +1,82 @@
+---
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Base from '../../layouts/Base.astro';
+
+const posts = (await getCollection('archive')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const byYear = new Map<number, typeof posts>();
+for (const post of posts) {
+	const year = post.data.pubDate.getFullYear();
+	byYear.set(year, [...(byYear.get(year) ?? []), post]);
+}
+const years = [...byYear.keys()].sort((a, b) => b - a);
+---
+
+<Base
+	title="Archive"
+	description="Political-science commentary and academic-life posts from 2014-2017, kept as written."
+>
+	<h1>Archive</h1>
+	<p>
+		Between 2014 and 2017 I was a political scientist writing about Congress in real time. These
+		posts are kept as written — a snapshot of that era and that version of me, not a reflection
+		of what I'd write today.
+	</p>
+
+	{
+		years.map((year) => (
+			<section>
+				<h2>{year}</h2>
+				<ul class="archive-list">
+					{byYear.get(year)!.map((post) => (
+						<li>
+							<a href={`/archive/${post.id}/`}>{post.data.title}</a>
+							<span class="badge">{post.data.category === 'academic' ? 'Academic life' : 'Commentary'}</span>
+							<span class="date">
+								<FormattedDate date={post.data.pubDate} />
+							</span>
+						</li>
+					))}
+				</ul>
+			</section>
+		))
+	}
+</Base>
+
+<style>
+	.archive-list {
+		list-style: none;
+		margin: 0 0 1.5em;
+		padding: 0;
+	}
+
+	.archive-list li {
+		padding: 0.6em 0;
+		border-bottom: 1px solid var(--color-border);
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 0.6em;
+	}
+
+	.archive-list a {
+		text-decoration: none;
+		flex: 1 1 auto;
+	}
+
+	.badge {
+		font-size: 0.78rem;
+		color: var(--color-ink-soft);
+		background: var(--color-bg-elevated);
+		border-radius: 999px;
+		padding: 0.1em 0.7em;
+	}
+
+	.date {
+		font-size: 0.85rem;
+		color: var(--color-ink-soft);
+	}
+</style>
