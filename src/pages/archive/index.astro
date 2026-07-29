@@ -54,8 +54,8 @@ const years = [...byYear.keys()].sort((a, b) => b - a);
 	}
 
 	.archive-list li {
-		padding: 0.6em 0;
-		border-bottom: 1px solid var(--color-border);
+		padding: 0.7em 0;
+		border-bottom: var(--border-width) solid var(--color-border);
 		display: flex;
 		flex-wrap: wrap;
 		align-items: baseline;
@@ -68,11 +68,13 @@ const years = [...byYear.keys()].sort((a, b) => b - a);
 	}
 
 	.badge {
-		font-size: 0.78rem;
-		color: var(--color-ink-soft);
-		background: var(--color-bg-elevated);
-		border-radius: 999px;
-		padding: 0.1em 0.7em;
+		font-size: 0.72rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		color: var(--color-accent-ink);
+		background: var(--color-accent);
+		padding: 0.15em 0.6em;
 	}
 
 	.date {

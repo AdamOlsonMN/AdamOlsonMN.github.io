@@ -50,16 +50,16 @@ export default defineConfig({
 	fonts: [
 		{
 			provider: fontProviders.google(),
-			name: 'Fraunces',
+			name: 'Space Grotesk',
 			cssVariable: '--font-heading',
-			fallbacks: ['Georgia', 'serif'],
-			weights: [500, 600, 700],
+			fallbacks: ['Arial', 'sans-serif'],
+			weights: [600, 700],
 		},
 		{
 			provider: fontProviders.google(),
-			name: 'Source Serif 4',
+			name: 'Inter',
 			cssVariable: '--font-body',
-			fallbacks: ['Georgia', 'serif'],
+			fallbacks: ['Arial', 'sans-serif'],
 			weights: [400, 600],
 			styles: ['normal', 'italic'],
 		},

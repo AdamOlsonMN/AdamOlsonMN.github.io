@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import PostList from '../../components/PostList.astro';
+import Card from '../../components/Card.astro';
 import Base from '../../layouts/Base.astro';
 
 const posts = (await getCollection('blog'))
@@ -17,5 +17,5 @@ const posts = (await getCollection('blog'))
 		Mostly data and analysis write-ups. Older political-science and academic-life posts live in
 		the <a href="/archive">archive</a> instead.
 	</p>
-	<PostList posts={posts} />
+	<Card posts={posts} />
 </Base>

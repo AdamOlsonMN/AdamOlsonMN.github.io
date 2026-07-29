@@ -1,5 +1,5 @@
 ---
-import PostList from '../components/PostList.astro';
+import Card from '../components/Card.astro';
 import Base from '../layouts/Base.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 import { getCollection } from 'astro:content';
@@ -36,7 +36,7 @@ const posts = (await getCollection('blog'))
 	{posts.length > 0 && (
 		<section>
 			<h2>Recent writing</h2>
-			<PostList posts={posts} />
+			<Card posts={posts} />
 			<p><a href="/blog">See all posts &rarr;</a></p>
 		</section>
 	)}
@@ -71,16 +71,15 @@ const posts = (await getCollection('blog'))
 		flex-shrink: 0;
 		width: 84px;
 		height: 84px;
-		border-radius: 50%;
-		background: var(--color-accent-soft);
-		color: var(--color-accent);
+		background: var(--color-accent);
+		color: var(--color-accent-ink);
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		font-family: var(--font-heading, Georgia, serif);
-		font-weight: 600;
-		font-size: 1.6rem;
-		border: 1px solid var(--color-border);
+		font-family: var(--font-heading, Arial, sans-serif);
+		font-weight: 700;
+		font-size: 1.8rem;
+		border: var(--border-width-thick) solid var(--color-border);
 	}
 
 	.hero h1 {

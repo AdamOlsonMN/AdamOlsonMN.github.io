@@ -1,0 +1,94 @@
+---
+import FormattedDate from './FormattedDate.astro';
+
+interface Post {
+	href: string;
+	title: string;
+	description: string;
+	pubDate: Date;
+}
+
+interface Props {
+	posts: Post[];
+}
+
+const { posts } = Astro.props;
+---
+
+<ul class="card-grid">
+	{
+		posts.map((post) => (
+			<li class="card">
+				<a href={post.href}>
+					<div class="card-header">
+						<span class="title">{post.title}</span>
+					</div>
+					<div class="card-body">
+						<span class="date">
+							<FormattedDate date={post.pubDate} />
+						</span>
+						<span class="description">{post.description}</span>
+					</div>
+				</a>
+			</li>
+		))
+	}
+</ul>
+
+<style>
+	.card-grid {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		gap: 1.2em;
+	}
+
+	.card {
+		border: var(--border-width-thick) solid var(--color-border);
+	}
+
+	.card a {
+		display: block;
+		text-decoration: none;
+		height: 100%;
+	}
+
+	.card-header {
+		background: var(--color-accent);
+		border-bottom: var(--border-width-thick) solid var(--color-border);
+		padding: 0.7em 0.9em;
+	}
+
+	.title {
+		font-family: var(--font-heading, Arial, sans-serif);
+		font-weight: 700;
+		font-size: 1.1rem;
+		color: var(--color-accent-ink);
+	}
+
+	.card:hover .card-header {
+		background: var(--color-accent-hover);
+	}
+
+	.card-body {
+		padding: 0.9em;
+	}
+
+	.date {
+		display: block;
+		font-size: 0.82rem;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.03em;
+		color: var(--color-ink-soft);
+		margin: 0 0 0.4em;
+	}
+
+	.description {
+		display: block;
+		color: var(--color-ink-soft);
+		font-size: 0.95rem;
+	}
+</style>

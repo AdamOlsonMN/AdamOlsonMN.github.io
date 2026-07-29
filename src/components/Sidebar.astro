@@ -1,0 +1,96 @@
+---
+import { AUTHOR_NAME, SOCIAL_LINKS } from '../consts';
+---
+
+<aside class="sidebar">
+	<a class="wordmark" href="/">
+		<!-- TODO(Adam): swap this initials placeholder for a real portrait -->
+		<span class="portrait" aria-hidden="true">AO</span>
+		<span class="name">{AUTHOR_NAME}</span>
+	</a>
+	<p class="tagline">Data Scientist · Political Scientist, Ph.D.</p>
+	<p class="employer">Currently at Essentia Health.</p>
+	<nav class="links" aria-label="Social links">
+		{
+			SOCIAL_LINKS.map((link) => (
+				<a href={link.href} rel={link.href.startsWith('http') ? 'me' : undefined}>
+					{link.label}
+				</a>
+			))
+		}
+	</nav>
+</aside>
+
+<style>
+	.sidebar {
+		padding: 2em 1.25em;
+		border-bottom: var(--border-width) solid var(--color-border);
+	}
+
+	.wordmark {
+		display: flex;
+		align-items: center;
+		gap: 0.8em;
+		text-decoration: none;
+		margin-bottom: 1em;
+	}
+
+	.portrait {
+		flex-shrink: 0;
+		width: 56px;
+		height: 56px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--color-accent);
+		color: var(--color-accent-ink);
+		border: var(--border-width-thick) solid var(--color-border);
+		font-family: var(--font-heading, Arial, sans-serif);
+		font-weight: 700;
+		font-size: 1.3rem;
+	}
+
+	.name {
+		font-family: var(--font-heading, Arial, sans-serif);
+		font-weight: 700;
+		font-size: 1.4rem;
+		color: var(--color-ink);
+		text-decoration: none;
+	}
+
+	.tagline {
+		font-weight: 600;
+		margin: 0 0 0.3em;
+	}
+
+	.employer {
+		color: var(--color-ink-soft);
+		margin: 0 0 1.2em;
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.9em 1.2em;
+	}
+
+	.links a {
+		font-size: 0.95rem;
+	}
+
+	@media (min-width: 800px) {
+		.sidebar {
+			position: sticky;
+			top: 0;
+			height: 100vh;
+			overflow-y: auto;
+			border-bottom: none;
+			border-right: var(--border-width) solid var(--color-border);
+		}
+
+		.links {
+			flex-direction: column;
+			gap: 0.7em;
+		}
+	}
+</style>

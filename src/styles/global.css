@@ -1,36 +1,45 @@
 :root {
-	--color-bg: #faf6ef;
-	--color-bg-elevated: #f2ead9;
-	--color-ink: #2b2420;
-	--color-ink-soft: #6b5f51;
-	--color-border: #e2d5bf;
-	--color-accent: #2f6f91;
-	--color-accent-soft: #2f6f911a;
-	--measure: 68ch;
-	--radius: 10px;
+	--color-bg: #fafafa;
+	--color-bg-elevated: #ffffff;
+	--color-ink: #14161a;
+	--color-ink-soft: #52565f;
+	--color-border: #14161a;
+	--color-accent: #1d4ed8;
+	--color-accent-hover: #3b82f6;
+	--color-accent-soft: #1d4ed81a;
+	--color-accent-ink: #ffffff;
+	--measure: 70ch;
+	--sidebar-width: 260px;
+	--radius: 0px;
+	--border-width: 2px;
+	--border-width-thick: 3px;
 	color-scheme: light;
 }
 
 :root[data-theme='dark'] {
-	--color-bg: #201c17;
-	--color-bg-elevated: #2a251e;
-	--color-ink: #ece3d4;
-	--color-ink-soft: #b3a692;
-	--color-border: #3d362c;
-	--color-accent: #7cc0e6;
-	--color-accent-soft: #7cc0e626;
+	--color-bg: #121316;
+	--color-bg-elevated: #1a1c20;
+	--color-ink: #f2f3f5;
+	--color-ink-soft: #a6acb8;
+	--color-border: #f2f3f5;
+	--color-accent: #60a5fa;
+	--color-accent-hover: #38bdf8;
+	--color-accent-soft: #60a5fa26;
+	--color-accent-ink: #0b0d10;
 	color-scheme: dark;
 }
 
 @media (prefers-color-scheme: dark) {
 	:root:not([data-theme='light']) {
-		--color-bg: #201c17;
-		--color-bg-elevated: #2a251e;
-		--color-ink: #ece3d4;
-		--color-ink-soft: #b3a692;
-		--color-border: #3d362c;
-		--color-accent: #7cc0e6;
-		--color-accent-soft: #7cc0e626;
+		--color-bg: #121316;
+		--color-bg-elevated: #1a1c20;
+		--color-ink: #f2f3f5;
+		--color-ink-soft: #a6acb8;
+		--color-border: #f2f3f5;
+		--color-accent: #60a5fa;
+		--color-accent-hover: #38bdf8;
+		--color-accent-soft: #60a5fa26;
+		--color-accent-ink: #0b0d10;
 		color-scheme: dark;
 	}
 }
@@ -40,7 +49,7 @@
 }
 
 html {
-	font-family: var(--font-body, Georgia, serif);
+	font-family: var(--font-body, Arial, sans-serif);
 }
 
 body {
@@ -48,14 +57,13 @@ body {
 	padding: 0;
 	background: var(--color-bg);
 	color: var(--color-ink);
-	font-size: 1.15rem;
-	line-height: 1.65;
+	font-size: 1.1rem;
+	line-height: 1.6;
 	transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 main {
 	max-width: var(--measure);
-	margin: 0 auto;
 	padding: 2.5em 1.25em 4em;
 }
 
@@ -63,20 +71,21 @@ h1,
 h2,
 h3,
 h4 {
-	font-family: var(--font-heading, Georgia, serif);
-	font-weight: 600;
-	line-height: 1.2;
+	font-family: var(--font-heading, Arial, sans-serif);
+	font-weight: 700;
+	line-height: 1.1;
+	letter-spacing: -0.01em;
 	color: var(--color-ink);
 	margin: 1.4em 0 0.5em;
 }
 
 h1 {
-	font-size: 2.4rem;
+	font-size: 2.75rem;
 	margin-top: 0;
 }
 
 h2 {
-	font-size: 1.7rem;
+	font-size: 1.8rem;
 }
 
 h3 {
@@ -92,10 +101,12 @@ a {
 	text-decoration-color: var(--color-accent-soft);
 	text-decoration-thickness: 2px;
 	text-underline-offset: 3px;
+	font-weight: 600;
 }
 
 a:hover {
-	text-decoration-style: wavy;
+	color: var(--color-accent-hover);
+	text-decoration-style: solid;
 }
 
 a:focus-visible,
@@ -107,22 +118,23 @@ button:focus-visible {
 blockquote {
 	margin: 1.5em 0;
 	padding: 0.2em 1.2em;
-	border-left: 3px solid var(--color-accent);
+	border-left: var(--border-width-thick) solid var(--color-accent);
 	color: var(--color-ink-soft);
 	font-style: italic;
 }
 
 code {
 	font-family: 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
-	font-size: 0.92em;
+	font-size: 0.9em;
 	background: var(--color-bg-elevated);
-	padding: 0.15em 0.4em;
-	border-radius: 5px;
+	border: 1px solid var(--color-border);
+	padding: 0.1em 0.4em;
+	border-radius: var(--radius);
 }
 
 pre {
 	background: var(--color-bg-elevated);
-	border: 1px solid var(--color-border);
+	border: var(--border-width) solid var(--color-border);
 	border-radius: var(--radius);
 	padding: 1em 1.2em;
 	overflow-x: auto;
@@ -130,6 +142,7 @@ pre {
 
 pre code {
 	background: none;
+	border: none;
 	padding: 0;
 }
 
@@ -137,11 +150,12 @@ img {
 	max-width: 100%;
 	height: auto;
 	border-radius: var(--radius);
+	border: var(--border-width) solid var(--color-border);
 }
 
 hr {
 	border: none;
-	border-top: 1px solid var(--color-border);
+	border-top: var(--border-width) solid var(--color-border);
 	margin: 2.5em 0;
 }
 
