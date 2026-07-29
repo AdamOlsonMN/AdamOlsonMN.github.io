@@ -14,6 +14,7 @@ const categoryLabel = category === 'academic' ? 'Academic life' : 'Political com
 <div class="archive-banner">
 	<div class="stamp">
 		<span class="stamp-date"><FormattedDate date={pubDate} /></span>
+		<span class="sep" aria-hidden="true">·</span>
 		<span class="stamp-category">{categoryLabel}</span>
 	</div>
 	<p>
@@ -26,33 +27,26 @@ const categoryLabel = category === 'academic' ? 'Academic life' : 'Political com
 <style>
 	.archive-banner {
 		margin-bottom: 2em;
-		padding: 1.1em 1.2em;
+		padding: 1em 1.2em;
 		background: var(--color-bg-elevated);
-		border: var(--border-width-thick) solid var(--color-border);
+		border: var(--border-width) solid var(--color-border);
+		border-radius: var(--radius);
 	}
 
 	.stamp {
-		display: inline-flex;
+		display: flex;
 		align-items: center;
-		gap: 0;
-		font-family: var(--font-heading, Arial, sans-serif);
-		font-weight: 700;
+		gap: 0.5em;
+		font-family: var(--font-mono, monospace);
 		margin-bottom: 0.7em;
-		font-size: 0.82rem;
-		letter-spacing: 0.03em;
+		font-size: 0.75rem;
+		letter-spacing: 0.04em;
 		text-transform: uppercase;
+		color: var(--color-accent);
 	}
 
-	.stamp-date,
-	.stamp-category {
-		background: var(--color-accent);
-		color: var(--color-accent-ink);
-		padding: 0.3em 0.7em;
-	}
-
-	.stamp-category {
-		background: var(--color-ink);
-		color: var(--color-bg);
+	.sep {
+		color: var(--color-border);
 	}
 
 	.archive-banner p {

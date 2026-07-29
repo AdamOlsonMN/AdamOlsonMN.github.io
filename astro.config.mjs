@@ -50,7 +50,7 @@ export default defineConfig({
 	fonts: [
 		{
 			provider: fontProviders.google(),
-			name: 'Space Grotesk',
+			name: 'Inter',
 			cssVariable: '--font-heading',
 			fallbacks: ['Arial', 'sans-serif'],
 			weights: [600, 700],
@@ -62,6 +62,13 @@ export default defineConfig({
 			fallbacks: ['Arial', 'sans-serif'],
 			weights: [400, 600],
 			styles: ['normal', 'italic'],
+		},
+		{
+			provider: fontProviders.google(),
+			name: 'JetBrains Mono',
+			cssVariable: '--font-mono',
+			fallbacks: ['Consolas', 'monospace'],
+			weights: [500, 600],
 		},
 	],
 });

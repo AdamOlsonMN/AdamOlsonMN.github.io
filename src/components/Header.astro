@@ -1,65 +1,36 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
-import { NAV_LINKS } from '../consts';
-
-const pathname = Astro.url.pathname;
-const isActive = (href: string) =>
-	href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
 ---
 
 <header>
-	<nav>
-		<div class="links">
-			{
-				NAV_LINKS.map((link) => (
-					<a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
-						{link.label}
-					</a>
-				))
-			}
-		</div>
+	<div class="row">
+		<a href="/" class="domain">adamolson.org</a>
 		<ThemeToggle />
-	</nav>
+	</div>
 </header>
 
 <style>
 	header {
-		border-bottom: var(--border-width) solid var(--color-border);
+		max-width: var(--measure);
+		margin: 0 auto;
+		padding: 1.8em 1.5em 0;
 	}
 
-	nav {
-		max-width: var(--measure);
-		padding: 1.1em 1.25em;
+	.row {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		gap: 1em;
-		flex-wrap: wrap;
 	}
 
-	.links {
-		display: flex;
-		align-items: center;
-		gap: 1.3em;
-	}
-
-	.links a {
-		text-decoration: none;
+	.domain {
+		font-family: var(--font-mono, monospace);
+		font-size: 0.78rem;
 		color: var(--color-ink-soft);
-		font-size: 0.98rem;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.03em;
+		text-decoration: none;
+		font-weight: 500;
 	}
 
-	.links a:hover,
-	.links a[aria-current='page'] {
+	.domain:hover {
 		color: var(--color-accent);
-	}
-
-	@media (max-width: 520px) {
-		.links {
-			gap: 0.9em;
-		}
 	}
 </style>

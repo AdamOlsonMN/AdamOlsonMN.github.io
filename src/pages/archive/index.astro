@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import PageNav from '../../components/PageNav.astro';
 import Base from '../../layouts/Base.astro';
 
 const posts = (await getCollection('archive')).sort(
@@ -20,6 +21,7 @@ const years = [...byYear.keys()].sort((a, b) => b - a);
 	description="Political-science commentary and academic-life posts from 2014-2017, kept as written."
 >
 	<h1>Archive</h1>
+	<PageNav />
 	<p>
 		Between 2014 and 2017 I was a political scientist writing about Congress in real time. These
 		posts are kept as written — a snapshot of that era and that version of me, not a reflection
@@ -68,17 +70,17 @@ const years = [...byYear.keys()].sort((a, b) => b - a);
 	}
 
 	.badge {
+		font-family: var(--font-mono, monospace);
 		font-size: 0.72rem;
-		font-weight: 700;
-		text-transform: uppercase;
 		letter-spacing: 0.03em;
-		color: var(--color-accent-ink);
-		background: var(--color-accent);
-		padding: 0.15em 0.6em;
+		text-transform: uppercase;
+		color: var(--color-accent);
 	}
 
 	.date {
-		font-size: 0.85rem;
+		font-family: var(--font-mono, monospace);
+		font-size: 0.78rem;
 		color: var(--color-ink-soft);
+		font-variant-numeric: tabular-nums;
 	}
 </style>

@@ -1,0 +1,51 @@
+---
+import { NAV_LINKS } from '../consts';
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+	href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
+---
+
+<nav aria-label="Main" class="page-nav">
+	{
+		NAV_LINKS.map((link, i) => (
+			<>
+				{i > 0 && (
+					<span class="sep" aria-hidden="true">
+						·
+					</span>
+				)}
+				<a href={link.href} aria-current={isActive(link.href) ? 'page' : undefined}>
+					{link.label}
+				</a>
+			</>
+		))
+	}
+</nav>
+
+<style>
+	.page-nav {
+		display: flex;
+		align-items: center;
+		gap: 0.7em;
+		margin: 1em 0 1.6em;
+		padding-bottom: 1.4em;
+		border-bottom: var(--border-width) solid var(--color-border);
+	}
+
+	.page-nav a {
+		text-decoration: none;
+		color: var(--color-ink-soft);
+		font-size: 0.88rem;
+		font-weight: 600;
+	}
+
+	.page-nav a:hover,
+	.page-nav a[aria-current='page'] {
+		color: var(--color-ink);
+	}
+
+	.sep {
+		color: var(--color-border);
+	}
+</style>
