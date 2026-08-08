@@ -204,9 +204,19 @@ import Base from '../layouts/Base.astro';
 
 	type TimelinePoint = { date: string; value: number };
 
-	// GDELT rate-limits to ~1 request/5s. Fetching topics in parallel gets throttled/blocked,
-	// so this fetches sequentially with a delay between requests instead.
-	const REQUEST_DELAY_MS = 5500;
+	// GDELT's stated limit is ~1 request/5s, but in practice its rate limiter
+	// is stricter/burstier than that — a fixed 5.5s gap was not reliably
+	// enough and left most page loads with 2 of 3 topics failing. This is now
+	// belt-and-suspenders: a more conservative base delay between *fresh*
+	// requests, real exponential-backoff retry specifically on HTTP 429 (not
+	// just a bigger fixed delay), and localStorage caching so a repeat visit
+	// within CACHE_TTL_MS doesn't re-hit GDELT at all.
+	const REQUEST_DELAY_MS = 8000;
+	const MAX_RETRIES = 3;
+	const RETRY_BASE_DELAY_MS = 15000; // 15s, 30s, 60s
+	const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour — this is daily-granularity data, doesn't need to be fresher
+
+	class RateLimitError extends Error {}
 
 	function parseGdeltDate(raw: string): Date {
 		// Format: "20260807T000000Z"
@@ -216,11 +226,42 @@ import Base from '../layouts/Base.astro';
 		return new Date(Date.UTC(y, m, d));
 	}
 
-	async function fetchTimeline(topic: string): Promise<TimelinePoint[]> {
+	function sleep(ms: number): Promise<void> {
+		return new Promise((resolve) => setTimeout(resolve, ms));
+	}
+
+	function cacheKey(topic: string): string {
+		return `pulse-cache-v1:${topic}`;
+	}
+
+	function getCached(topic: string): TimelinePoint[] | null {
+		try {
+			const raw = localStorage.getItem(cacheKey(topic));
+			if (!raw) return null;
+			const { timestamp, data } = JSON.parse(raw);
+			if (typeof timestamp !== 'number' || Date.now() - timestamp > CACHE_TTL_MS) return null;
+			return data;
+		} catch {
+			return null;
+		}
+	}
+
+	function setCached(topic: string, data: TimelinePoint[]): void {
+		try {
+			localStorage.setItem(cacheKey(topic), JSON.stringify({ timestamp: Date.now(), data }));
+		} catch {
+			// localStorage unavailable or full — caching is an optimization, not a requirement
+		}
+	}
+
+	async function fetchTimelineOnce(topic: string): Promise<TimelinePoint[]> {
 		const url = `https://api.gdeltproject.org/api/v2/doc/doc?query=${encodeURIComponent(
 			topic
 		)}&mode=timelinevol&format=json&timespan=30days`;
 		const res = await fetch(url);
+		if (res.status === 429) {
+			throw new RateLimitError(`GDELT rate-limited "${topic}"`);
+		}
 		if (!res.ok) {
 			throw new Error(`GDELT request failed for "${topic}": ${res.status}`);
 		}
@@ -235,8 +276,21 @@ import Base from '../layouts/Base.astro';
 		}));
 	}
 
-	function sleep(ms: number): Promise<void> {
-		return new Promise((resolve) => setTimeout(resolve, ms));
+	async function fetchTimelineWithRetry(topic: string): Promise<TimelinePoint[]> {
+		for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+			try {
+				return await fetchTimelineOnce(topic);
+			} catch (err) {
+				const isLastAttempt = attempt === MAX_RETRIES;
+				if (!(err instanceof RateLimitError) || isLastAttempt) throw err;
+				const wait = RETRY_BASE_DELAY_MS * Math.pow(2, attempt);
+				console.warn(
+					`GDELT rate-limited "${topic}" — retrying in ${wait / 1000}s (attempt ${attempt + 1}/${MAX_RETRIES})`
+				);
+				await sleep(wait);
+			}
+		}
+		throw new Error('unreachable');
 	}
 
 	function renderLegend() {
@@ -413,22 +467,47 @@ import Base from '../layouts/Base.astro';
 		renderLegend();
 		const status = document.getElementById('pulse-status')!;
 		const seriesByTopic: (TimelinePoint[] | null)[] = TOPICS.map(() => null);
+		const topicState: string[] = TOPICS.map(() => 'pending');
+
+		const renderStatus = () => {
+			status.textContent = TOPICS.map((t, i) => `${t}: ${topicState[i]}`).join(' · ');
+		};
 
 		for (let i = 0; i < TOPICS.length; i++) {
-			status.textContent = `Loading topic ${i + 1} of ${TOPICS.length} (${TOPICS[i]})…`;
+			const topic = TOPICS[i];
+			const cached = getCached(topic);
+
+			topicState[i] = cached ? 'loading from cache…' : 'loading…';
+			renderStatus();
+
 			try {
-				seriesByTopic[i] = await fetchTimeline(TOPICS[i]);
+				if (cached) {
+					seriesByTopic[i] = cached;
+					topicState[i] = 'loaded (cached, up to 1hr old)';
+				} else {
+					const data = await fetchTimelineWithRetry(topic);
+					setCached(topic, data);
+					seriesByTopic[i] = data;
+					topicState[i] = 'loaded';
+				}
 			} catch (err) {
 				console.error(err);
-				status.textContent = `Couldn't load "${TOPICS[i]}" from GDELT — see console for details.`;
+				topicState[i] =
+					err instanceof RateLimitError
+						? 'rate-limited by GDELT after retries — try reloading in a minute'
+						: 'failed to load (see console)';
 			}
+
+			renderStatus();
 			renderChart(seriesByTopic);
-			if (i < TOPICS.length - 1) {
+
+			// Only throttle between *fresh* network requests — a cache hit made
+			// no request, so there's nothing to rate-limit against.
+			if (i < TOPICS.length - 1 && !cached) {
 				await sleep(REQUEST_DELAY_MS);
 			}
 		}
 
-		status.textContent = `Loaded ${TOPICS.length} topics, trailing 30 days, from GDELT.`;
 		renderTable(seriesByTopic);
 
 		const toggle = document.getElementById('pulse-table-toggle')!;

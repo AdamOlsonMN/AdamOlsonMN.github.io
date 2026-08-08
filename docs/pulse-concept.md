@@ -17,8 +17,15 @@ a sentiment/tone timeline, tone histograms, breakdowns by source country or
 language, and more. No API key, no auth, and — the detail that makes this
 possible as a static-site page at all — **CORS is wildcard-open**, so a
 plain client-side `fetch()` from a static Astro page works with no backend.
-The tradeoff: it's rate-limited to roughly one request every 5 seconds per
-client, which shapes the design (see below).
+The tradeoff: it's rate-limited, and **the real limit is stricter and
+burstier than the "~1 request/5s" the API itself advertises in its 429
+response** — testing after the first version shipped found requests still
+getting 429'd with 15s+ gaps between them. The page now treats this as a
+real failure mode rather than something a fixed delay reliably avoids:
+exponential-backoff retry specifically on HTTP 429 (not just a bigger fixed
+delay), plus an hour-long localStorage cache per topic so a repeat page
+load doesn't re-hit GDELT at all. See `REQUEST_DELAY_MS` / `MAX_RETRIES` /
+`RETRY_BASE_DELAY_MS` / `CACHE_TTL_MS` in the page's script.
 
 ## What the current sketch shows
 
@@ -31,10 +38,12 @@ trailing 30 days. That percentage is itself the interesting number: it's not
 right now is this," which is a genuinely different (and more comparable
 across topics and over time) measure than a raw article count.
 
-Because of the 5-second rate limit, the three topics load sequentially with
-a delay between them rather than all at once — the chart fills in
-progressively over about 15-20 seconds on page load. That's a real
-constraint of the free tier, not a bug.
+The three topics load sequentially with a delay between fresh requests
+rather than all at once, so the chart fills in progressively on page load
+— longer than the original ~15-20s estimate now that the delay and retry
+backoff are more conservative, but a cached repeat visit within an hour
+loads instantly with no GDELT requests at all. That's a real constraint of
+the free tier, not a bug.
 
 ## What this could grow into, if the core idea lands
 
