@@ -1,6 +1,6 @@
 export const SITE_TITLE = 'Adam Olson';
 export const SITE_DESCRIPTION =
-	'Political scientist turned data scientist. Writing on data, Congress, and whatever else seems worth a post.';
+	"Data scientist, former political scientist, and a place for things I've written, made, or wanted to remember.";
 
 export const AUTHOR_NAME = 'Adam Olson';
 export const AUTHOR_EMAIL = 'adam@adamolson.org';
