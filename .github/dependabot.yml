@@ -5,6 +5,10 @@ updates:
     schedule:
       interval: "monthly"
     open-pull-requests-limit: 3
+    # Limit routine version updates; security updates remain eligible.
+    allow:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-minor", "version-update:semver-patch"]
     groups:
       compatible-updates:
         update-types: ["minor", "patch"]
