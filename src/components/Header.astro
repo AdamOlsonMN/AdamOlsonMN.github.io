@@ -11,6 +11,8 @@ import ThemeToggle from './ThemeToggle.astro';
 
 <style>
 	header {
+		/* Without a width, auto margins in the .page flex column shrink-wrap and center it. */
+		width: 100%;
 		max-width: var(--measure);
 		margin: 0 auto;
 		padding: 1.8em 1.5em 0;

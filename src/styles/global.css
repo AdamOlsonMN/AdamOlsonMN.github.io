@@ -62,6 +62,7 @@ body {
 }
 
 main {
+	width: 100%;
 	max-width: var(--measure);
 	margin: 0 auto;
 	padding: 2.5em 1.5em 5em;
