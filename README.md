@@ -29,7 +29,20 @@ resolve an open GitHub alert.
 
 ## Deployment
 
-Pushes to `master` build and deploy automatically via `.github/workflows/deploy.yml` (GitHub Actions → GitHub Pages). The custom domain is set in `public/CNAME`.
+Pushes to `master` build and deploy automatically via `.github/workflows/deploy.yml` (GitHub Actions → GitHub Pages).
+
+The custom domain is set in the repository's Settings → Pages. GitHub ignores
+`public/CNAME` for Actions deployments, so editing that file changes nothing.
+
+DNS is at Namecheap: four apex A records for GitHub Pages and exactly one `www`
+CNAME, pointing to `adamolsonmn.github.io`. GitHub issues one certificate for
+both names, so it issues nothing while `www` is ineligible. The Advanced DNS
+page hides records behind "Show more". Until October 2026, a hidden duplicate
+`www` CNAME pointing to the apex blocked the certificate. To check
+eligibility, run
+`gh api repos/AdamOlsonMN/AdamOlsonMN.github.io/pages/health`.
+`adamolson.net` is a Namecheap URL redirect (301) to `https://adamolson.org`.
+It cannot serve HTTPS itself.
 
 Pages deployment and the PR verification workflow are separate. A successful
 build does not verify custom-domain DNS, certificate names, or HTTPS redirects.
