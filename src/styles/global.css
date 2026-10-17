@@ -146,6 +146,48 @@ pre code {
 	padding: 0;
 }
 
+/* Shiki sets both palettes as variables (see astro.config.mjs); choose one. */
+.astro-code,
+.astro-code span {
+	color: var(--shiki-light);
+}
+
+:root[data-theme='dark'] .astro-code,
+:root[data-theme='dark'] .astro-code span {
+	color: var(--shiki-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-theme='light']) .astro-code,
+	:root:not([data-theme='light']) .astro-code span {
+		color: var(--shiki-dark);
+	}
+}
+
+/* Wrapper and copy button added by the script in PostLayout.astro. */
+.code-block {
+	position: relative;
+}
+
+.copy-code {
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
+	padding: 0.2em 0.6em;
+	font-family: var(--font-mono, monospace);
+	font-size: 0.72rem;
+	color: var(--color-ink-soft);
+	background: var(--color-bg);
+	border: var(--border-width) solid var(--color-border);
+	border-radius: var(--radius);
+	cursor: pointer;
+}
+
+.copy-code:hover {
+	color: var(--color-accent);
+	border-color: var(--color-accent);
+}
+
 img {
 	max-width: 100%;
 	height: auto;

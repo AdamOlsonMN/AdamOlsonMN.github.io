@@ -39,6 +39,13 @@ for (const slug of archiveSlugs) {
 export default defineConfig({
 	site: 'https://adamolson.org',
 	integrations: [sitemap()],
+	markdown: {
+		shikiConfig: {
+			// Emit both palettes as CSS variables; global.css picks one per theme.
+			themes: { light: 'github-light', dark: 'github-dark' },
+			defaultColor: false,
+		},
+	},
 	redirects: {
 		// The five technical posts kept as first-class blog content, retitled with clean slugs.
 		'/post_about_maps/': '/blog/mapping-data-in-r/',

@@ -44,6 +44,31 @@ const { title, description, pubDate, tags, variant, category, context } = Astro.
 	</article>
 </Base>
 
+<script>
+	// Wraps each code block so a copy button can sit outside its scroll area.
+	for (const pre of document.querySelectorAll<HTMLPreElement>('.prose pre')) {
+		const wrapper = document.createElement('div');
+		wrapper.className = 'code-block';
+		pre.replaceWith(wrapper);
+		wrapper.append(pre);
+
+		const button = document.createElement('button');
+		button.type = 'button';
+		button.className = 'copy-code';
+		button.textContent = 'Copy';
+		button.addEventListener('click', async () => {
+			try {
+				await navigator.clipboard.writeText(pre.querySelector('code')?.textContent ?? '');
+				button.textContent = 'Copied';
+			} catch {
+				button.textContent = 'Copy failed';
+			}
+			setTimeout(() => (button.textContent = 'Copy'), 2000);
+		});
+		wrapper.append(button);
+	}
+</script>
+
 <style>
 	.post-header {
 		margin-bottom: 1.5em;
