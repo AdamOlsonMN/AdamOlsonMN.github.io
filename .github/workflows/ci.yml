@@ -2,8 +2,7 @@ name: Checks
 
 on:
   pull_request:
-  push:
-    branches: [master]
+  # Pushes to master run these checks through deploy.yml.
   workflow_call:
   workflow_dispatch:
 

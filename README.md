@@ -34,7 +34,10 @@ resolve an open GitHub alert.
 
 ## Deployment
 
-Pushes to `master` build and deploy automatically via `.github/workflows/deploy.yml` (GitHub Actions → GitHub Pages).
+Pushes to `master` deploy automatically via `.github/workflows/deploy.yml`
+(GitHub Actions → GitHub Pages). It runs the pull request checks first, so a
+failing check blocks the deploy, then builds with the `.nvmrc` Node version and
+the lockfile.
 
 The custom domain is set in the repository's Settings → Pages. GitHub ignores
 `public/CNAME` for Actions deployments, so editing that file changes nothing.
