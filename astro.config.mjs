@@ -27,10 +27,12 @@ const archiveSlugs = [
 	'slides-minimumwage',
 ];
 
+// Old Jekyll URLs kept their mixed case, but Astro lowercases content IDs and
+// GitHub Pages paths are case-sensitive, so only the source keeps its case.
 /** @type {Record<string, string>} */
 const archiveRedirects = {};
 for (const slug of archiveSlugs) {
-	archiveRedirects[`/${slug}/`] = `/archive/${slug}/`;
+	archiveRedirects[`/${slug}/`] = `/archive/${slug.toLowerCase()}/`;
 }
 
 // https://astro.build/config

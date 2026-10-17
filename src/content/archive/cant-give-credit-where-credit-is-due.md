@@ -8,7 +8,7 @@ tags:
   - US Senate
 ---
 
-Even though the [Senate Majority Leader didn't really give the Democratic amendments to the Keystone bill a "vote,"](/archive/Senate-Republicans-blocked-amendments-to-Keystone-bill/) he did allow more debate on the amendments than the Democratic majority probably would have in previous Congresses. In fact, the allocation of debate time was so comparatively generous, and so appreciated by some Democrats, that Sen. Schatz (D-HI) ["told the GOP leader he 'wanted to applaud, but I'm on Team Blue.'"](http://www.politico.com/story/2015/02/mitch-mcconnell-senate-114818.html?hp=t2_r)
+Even though the [Senate Majority Leader didn't really give the Democratic amendments to the Keystone bill a "vote,"](/archive/senate-republicans-blocked-amendments-to-keystone-bill/) he did allow more debate on the amendments than the Democratic majority probably would have in previous Congresses. In fact, the allocation of debate time was so comparatively generous, and so appreciated by some Democrats, that Sen. Schatz (D-HI) ["told the GOP leader he 'wanted to applaud, but I'm on Team Blue.'"](http://www.politico.com/story/2015/02/mitch-mcconnell-senate-114818.html?hp=t2_r)
 
 This is a nice little window into how the modern Congressional party works. According to [Frances Lee](http://www.amazon.com/Beyond-Ideology-Politics-Principles-Partisanship/dp/0226470768), party members in Congress view their party as more than just a group of people with similar ideology — they're members of a "team," and partisans view other partisans as teammates. She looks at proposals that shouldn't be ideologically divisive and finds support for that hypothesis.
 
