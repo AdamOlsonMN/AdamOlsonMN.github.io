@@ -116,7 +116,7 @@ In any case, the graph looks pretty good. I sent it to one of my coauthors and h
 
 ## The harder way: raw shapefiles
 
-The other way to make maps is to read in the raw shapefiles that contain the information for how a map looks. [See this post on Hadley Wickham's GitHub page](https://github.com/hadley/ggplot2/wiki/plotting-polygon-shapefiles) for more on shapefiles generally. In this case, we're again looking at state level data, and the logic is the same — load the shapefiles, load the data, merge, plot. The first step, loading the shapefiles, is the hardest part. You can download the map shapefiles from the [U.S. Census here](https://www.census.gov/geo/maps-data/data/cbf/cbf_state.html).
+The other way to make maps is to read in the raw shapefiles that contain the information for how a map looks. [See this post on Hadley Wickham's GitHub page](https://github.com/hadley/ggplot2/wiki/plotting-polygon-shapefiles) for more on shapefiles generally. In this case, we're again looking at state level data, and the logic is the same — load the shapefiles, load the data, merge, plot. The first step, loading the shapefiles, is the hardest part. You can download the map shapefiles from the [U.S. Census here](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.html).
 
 Here is the code:
 
