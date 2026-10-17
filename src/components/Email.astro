@@ -1,0 +1,25 @@
+---
+// Keeps a literal user@domain address and "mailto:" out of the built HTML, so
+// simple scrapers don't find it. The script below assembles the link in the
+// browser; without JavaScript, readers see "adam [at] adamolson.org".
+interface Props {
+	/** Link text to show instead of the address, such as "Email". */
+	label?: string;
+}
+
+const { label } = Astro.props;
+const user = 'adam';
+const domain = 'adamolson.org';
+---
+
+<a class="email" data-user={user} data-domain={domain} data-label={label}>
+	{label ?? `${user} [at] ${domain}`}
+</a>
+
+<script>
+	for (const link of document.querySelectorAll<HTMLAnchorElement>('a.email')) {
+		const address = `${link.dataset.user}@${link.dataset.domain}`;
+		link.href = `mailto:${address}`;
+		if (!link.dataset.label) link.textContent = address;
+	}
+</script>

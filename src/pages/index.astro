@@ -1,5 +1,6 @@
 ---
 import Card from '../components/Card.astro';
+import Email from '../components/Email.astro';
 import PageNav from '../components/PageNav.astro';
 import Base from '../layouts/Base.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
@@ -40,7 +41,7 @@ const posts = (await getCollection('blog'))
 	<section>
 		<h2 class="eyebrow">Elsewhere</h2>
 		<div class="elsewhere">
-			<a href="mailto:adam@adamolson.org">Email</a>
+			<Email label="Email" />
 			<a href="https://github.com/AdamOlsonMN">GitHub</a>
 			<a href="https://www.linkedin.com/in/adamolsonmn">LinkedIn</a>
 			<a href="/rss.xml">RSS</a>
@@ -97,7 +98,8 @@ const posts = (await getCollection('blog'))
 		flex-wrap: wrap;
 	}
 
-	.elsewhere a {
+	/* :global so the link rendered by Email.astro gets the same style. */
+	.elsewhere :global(a) {
 		font-family: var(--font-mono, monospace);
 		font-size: 0.85rem;
 	}
