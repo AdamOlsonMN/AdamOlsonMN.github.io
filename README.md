@@ -18,12 +18,17 @@ npm ci
 npm run dev       # local dev server
 npm run build     # production build to dist/
 npm run preview   # preview the production build
+npm run check     # type-check .astro files and content schemas
+npm run check:links  # after a build: every internal link in dist/ resolves
 ```
 
 ## Verification
 
-[Pull request checks](.github/workflows/ci.yml) install from the lockfile, build
-the static site, and run `npm audit --audit-level=high`. Review GitHub dependency
+[Pull request checks](.github/workflows/ci.yml) install from the lockfile,
+type-check, build the static site, check internal links, and run
+`npm audit --audit-level=high`. The link check matches case exactly, as GitHub
+Pages does, so it catches links that work locally on Windows but 404 in
+production. It does not request external URLs. Review GitHub dependency
 alerts too: advisory feeds can differ, so a clean npm audit alone does not
 resolve an open GitHub alert.
 
