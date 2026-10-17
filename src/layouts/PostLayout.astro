@@ -9,16 +9,18 @@ interface Props {
 	title: string;
 	description: string;
 	pubDate: Date;
+	updatedDate?: Date;
 	tags?: string[];
 	variant: 'blog' | 'archive';
 	category?: 'commentary' | 'academic';
 	context?: string;
 }
 
-const { title, description, pubDate, tags, variant, category, context } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, variant, category, context } =
+	Astro.props;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} article={{ published: pubDate, modified: updatedDate }}>
 	<article>
 		{variant === 'archive' && category && (
 			<ArchiveBanner pubDate={pubDate} category={category} context={context} />
