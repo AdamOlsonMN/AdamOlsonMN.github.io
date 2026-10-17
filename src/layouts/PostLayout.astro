@@ -148,5 +148,18 @@ const { title, description, pubDate, updatedDate, tags, variant, category, conte
 			padding-left: 0;
 			border-left: 0;
 		}
+
+		/* Inline SVG charts are usually drawn wider than the text column, so at
+		   column width their labels shrink below a readable size. Wide screens
+		   let them spread into the empty margins on both sides instead. */
+		.prose > :global(svg) {
+			display: block;
+			clear: right;
+			width: calc(100% + 16rem);
+			/* Charts set max-width: 100% inline so they fit narrow screens. */
+			max-width: none !important;
+			height: auto;
+			margin-inline: -8rem;
+		}
 	}
 </style>
