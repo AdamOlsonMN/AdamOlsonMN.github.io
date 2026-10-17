@@ -104,4 +104,49 @@ const { title, description, pubDate, updatedDate, tags, variant, category, conte
 	.prose :global(h2) {
 		margin-top: 1.8em;
 	}
+
+	/* Sidenotes made from footnotes by src/plugins/sidenotes.mjs. Narrow screens
+	   show each note under its line; wide ones float it into the right margin. */
+	.prose :global(.sidenote-ref),
+	.prose :global(.sidenote-number) {
+		font-family: var(--font-mono, monospace);
+		font-weight: 600;
+		color: var(--color-accent);
+	}
+
+	.prose :global(.sidenote-ref) {
+		font-size: 0.7em;
+		margin-left: 0.1em;
+	}
+
+	.prose :global(.sidenote) {
+		display: block;
+		margin: 0.5em 0 0.8em;
+		padding-left: 0.9em;
+		border-left: var(--border-width-thick) solid var(--color-border);
+		font-size: 0.85rem;
+		line-height: 1.5;
+		color: var(--color-ink-soft);
+	}
+
+	/* Footnotes too long for the margin (lists, code) stay at the end. */
+	.prose :global(.footnotes) {
+		margin-top: 2.5em;
+		padding-top: 1em;
+		border-top: var(--border-width) solid var(--color-border);
+		font-size: 0.88rem;
+		color: var(--color-ink-soft);
+	}
+
+	@media (min-width: 72rem) {
+		.prose :global(.sidenote) {
+			float: right;
+			clear: right;
+			width: 13.5rem;
+			/* Negative margin wider than the note hangs it fully outside the column. */
+			margin: 0.3em -16rem 1em 0;
+			padding-left: 0;
+			border-left: 0;
+		}
+	}
 </style>

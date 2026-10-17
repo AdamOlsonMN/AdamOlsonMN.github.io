@@ -1,6 +1,8 @@
 // @ts-check
+import { satteri } from '@astrojs/markdown-satteri';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import { sidenotes } from './src/plugins/sidenotes.mjs';
 
 const archiveSlugs = [
 	'new-blogging-start',
@@ -40,6 +42,8 @@ export default defineConfig({
 	site: 'https://adamolson.org',
 	integrations: [sitemap()],
 	markdown: {
+		// Footnotes become margin notes; see src/plugins/sidenotes.mjs.
+		processor: satteri({ hastPlugins: [sidenotes()] }),
 		shikiConfig: {
 			// Emit both palettes as CSS variables; global.css picks one per theme.
 			themes: { light: 'github-light', dark: 'github-dark' },

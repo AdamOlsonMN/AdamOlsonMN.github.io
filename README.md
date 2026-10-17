@@ -20,12 +20,26 @@ npm run build     # production build to dist/
 npm run preview   # preview the production build
 npm run check     # type-check .astro files and content schemas
 npm run check:links  # after a build: every internal link in dist/ resolves
+npm test          # unit tests for build plugins
 ```
+
+## Writing posts
+
+Markdown footnotes (`text.[^1]` with `[^1]: The note.` below) render as
+margin notes: in the right margin on wide screens, under the line on narrow
+ones. A footnote containing a list or code block stays an ordinary footnote at
+the end of the post. [`src/plugins/sidenotes.mjs`](src/plugins/sidenotes.mjs)
+does the conversion when the site builds.
+
+The plugin runs in Astro's Sätteri Markdown processor, so
+`@astrojs/markdown-satteri` is pinned to the exact version Astro itself depends
+on. When an Astro update changes that version, update the pin to match; the
+plugin tests check that Sätteri's footnote markup hasn't changed.
 
 ## Verification
 
 [Pull request checks](.github/workflows/ci.yml) install from the lockfile,
-type-check, build the static site, check internal links, and run
+type-check, run the plugin tests, build the static site, check internal links, and run
 `npm audit --audit-level=high`. The link check matches case exactly, as GitHub
 Pages does, so it catches links that work locally on Windows but 404 in
 production. It does not request external URLs. Review GitHub dependency
