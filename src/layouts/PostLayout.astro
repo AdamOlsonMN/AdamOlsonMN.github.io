@@ -9,16 +9,18 @@ interface Props {
 	title: string;
 	description: string;
 	pubDate: Date;
+	updatedDate?: Date;
 	tags?: string[];
 	variant: 'blog' | 'archive';
 	category?: 'commentary' | 'academic';
 	context?: string;
 }
 
-const { title, description, pubDate, tags, variant, category, context } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, variant, category, context } =
+	Astro.props;
 ---
 
-<Base title={title} description={description}>
+<Base title={title} description={description} article={{ published: pubDate, modified: updatedDate }}>
 	<article>
 		{variant === 'archive' && category && (
 			<ArchiveBanner pubDate={pubDate} category={category} context={context} />
@@ -43,6 +45,31 @@ const { title, description, pubDate, tags, variant, category, context } = Astro.
 		</div>
 	</article>
 </Base>
+
+<script>
+	// Wraps each code block so a copy button can sit outside its scroll area.
+	for (const pre of document.querySelectorAll<HTMLPreElement>('.prose pre')) {
+		const wrapper = document.createElement('div');
+		wrapper.className = 'code-block';
+		pre.replaceWith(wrapper);
+		wrapper.append(pre);
+
+		const button = document.createElement('button');
+		button.type = 'button';
+		button.className = 'copy-code';
+		button.textContent = 'Copy';
+		button.addEventListener('click', async () => {
+			try {
+				await navigator.clipboard.writeText(pre.querySelector('code')?.textContent ?? '');
+				button.textContent = 'Copied';
+			} catch {
+				button.textContent = 'Copy failed';
+			}
+			setTimeout(() => (button.textContent = 'Copy'), 2000);
+		});
+		wrapper.append(button);
+	}
+</script>
 
 <style>
 	.post-header {

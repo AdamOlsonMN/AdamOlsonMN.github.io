@@ -27,16 +27,25 @@ const archiveSlugs = [
 	'slides-minimumwage',
 ];
 
+// Old Jekyll URLs kept their mixed case, but Astro lowercases content IDs and
+// GitHub Pages paths are case-sensitive, so only the source keeps its case.
 /** @type {Record<string, string>} */
 const archiveRedirects = {};
 for (const slug of archiveSlugs) {
-	archiveRedirects[`/${slug}/`] = `/archive/${slug}/`;
+	archiveRedirects[`/${slug}/`] = `/archive/${slug.toLowerCase()}/`;
 }
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://adamolson.org',
 	integrations: [sitemap()],
+	markdown: {
+		shikiConfig: {
+			// Emit both palettes as CSS variables; global.css picks one per theme.
+			themes: { light: 'github-light', dark: 'github-dark' },
+			defaultColor: false,
+		},
+	},
 	redirects: {
 		// The five technical posts kept as first-class blog content, retitled with clean slugs.
 		'/post_about_maps/': '/blog/mapping-data-in-r/',

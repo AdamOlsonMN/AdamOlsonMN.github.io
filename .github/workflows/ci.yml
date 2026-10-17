@@ -2,8 +2,7 @@ name: Checks
 
 on:
   pull_request:
-  push:
-    branches: [master]
+  # Pushes to master run these checks through deploy.yml.
   workflow_call:
   workflow_dispatch:
 
@@ -25,5 +24,7 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
+      - run: npm run check
       - run: npm run build
+      - run: npm run check:links
       - run: npm audit --audit-level=high

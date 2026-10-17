@@ -7,15 +7,16 @@ interface Props {
 	title: string;
 	description: string;
 	image?: string;
+	article?: { published: Date; modified?: Date };
 }
 
-const { title, description, image } = Astro.props;
+const { title, description, image, article } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={title} description={description} image={image} />
+		<BaseHead title={title} description={description} image={image} article={article} />
 	</head>
 	<body>
 		<div class="page">
