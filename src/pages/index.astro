@@ -12,7 +12,7 @@ const posts = (await getCollection('blog'))
 	.map((post) => ({ ...post.data, href: `/blog/${post.id}/` }));
 ---
 
-<Base title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<Base title={`${SITE_TITLE} | Data Scientist in Minnesota`} description={SITE_DESCRIPTION}>
 	<section class="hero">
 		<h1>Adam Olson</h1>
 		<PageNav />

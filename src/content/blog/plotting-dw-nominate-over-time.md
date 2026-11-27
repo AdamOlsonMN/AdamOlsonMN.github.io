@@ -50,3 +50,5 @@ dev.off()
 ```
 
 As always, let me know if you have any questions.
+
+For a look at how members are distributed around those party averages, see [Animating DW-NOMINATE Scores with gganimate](/blog/animating-dw-nominate-with-gganimate/).
